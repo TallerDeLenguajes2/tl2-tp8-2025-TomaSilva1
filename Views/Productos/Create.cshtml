@@ -1,0 +1,49 @@
+@using Microsoft.VisualBasic
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <title>dar de alta</title>
+</head>
+<body>
+    <div class="container text-center">
+        <h1>Alta Productos</h1>
+        <p>Agregar un nuevo producto</p>
+    </div>
+
+    <div class="collapse" id="navbarToggleExternalContent" data-bs-theme="dark">
+    <div class="bg-dark p-4">
+        <h5 class="text-body-emphasis h4">Opciones</h5>
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between white">
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item">
+                    <a class="nav-link text-white" asp-area="" asp-controller="Productos" asp-action="Index">Volver</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    </div>
+    <nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    </nav>
+    <form asp-controller="Productos" asp-action="Alta" method="post" class="text-center m-4">
+        <p>Descripcion</p>
+        <input type="text" name="Desc">
+        <p>Precio</p>
+        <input type="number" name="Pre">
+        <div class="m-3">
+            <input type="submit">
+            <input type="reset">
+        </div>
+    </form>
+
+</body>
+</html>

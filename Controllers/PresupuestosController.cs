@@ -15,7 +15,7 @@ public class PresupuestosController : Controller
     //A partir de aqui los get, post, ect.
 
     [HttpGet]
-    public IActionResult Details()
+    public IActionResult Index()
     {
         List<Presupuestos> presupuestos = _presupuestoRepositorio.obtenerPresupuestos();
         return View(presupuestos);

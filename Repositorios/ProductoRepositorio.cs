@@ -2,6 +2,7 @@
 // select last_insert_aca va algo, devuelve el ultimo id de la consulta hecha?
 using System.Formats.Asn1;
 using Microsoft.Data.Sqlite;
+using SQLitePCL;
 
 public class ProductoRepositorio
 {
@@ -58,26 +59,20 @@ public class ProductoRepositorio
     }
 
     //Modificar un producto.
-    public int ActualizarPrecio(int idProduc, Productos produc)
+    public int editarProducto(int idProduc, Productos produc)
     {
-
+        string sql = $"UPDATE productos SET descripcion = @1, precio = @2 WHERE id_prod = @3";
         int filasAfectadas = 0; 
         
+        using var conexion = new SqliteConnection(_coneccionADB);
+        conexion.Open();
 
-        using (SqliteConnection conexion = new SqliteConnection(_coneccionADB))
-        {
-            conexion.Open();
+        using var comando = new SqliteCommand(sql, conexion);
+        comando.Parameters.Add(new SqliteParameter("@1", produc.Descripcion));
+        comando.Parameters.Add(new SqliteParameter("@2", produc.Precio));
+        comando.Parameters.Add(new SqliteParameter("@3", idProduc));
 
-            string sql = "UPDATE productos SET precio = @precio WHERE id_prod = @idProduc;";
-
-            using (var comando = new SqliteCommand(sql, conexion))
-            {
-                comando.Parameters.AddWithValue("@precio", produc.Precio);
-                comando.Parameters.AddWithValue("@idProduc", idProduc);
-
-                filasAfectadas = comando.ExecuteNonQuery();
-            }
-        }
+        filasAfectadas = comando.ExecuteNonQuery();
 
         return filasAfectadas;
     }
