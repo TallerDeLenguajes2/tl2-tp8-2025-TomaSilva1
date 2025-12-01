@@ -3,8 +3,9 @@
 using System.Formats.Asn1;
 using Microsoft.Data.Sqlite;
 using SQLitePCL;
+using tl2_tp8_2025_TomaSilva1.Interfaces;
 
-public class ProductoRepositorio
+public class ProductoRepositorio : IProductoRepositorio
 {
     private string _coneccionADB = "Data Source=DB/nueva.db";
 

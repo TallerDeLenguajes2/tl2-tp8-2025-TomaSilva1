@@ -7,23 +7,65 @@ using SistemaVenta.Web.ViewModels; // Necesario para SelectList
 
 namespace tl2_tp8_2025_TomaSilva1.Controllers;
 
+using tl2_tp8_2025_TomaSilva1.Interfaces;
+
 public class PresupuestosController : Controller
 {
-    private readonly PresupuestoRepositorio _presupuestoRepositorio;
-    private readonly ProductoRepositorio _productoRepositorio;
-    public PresupuestosController()
+    private readonly IPresupuestoRepositorio _presupuestoRepositorio;
+    private readonly IProductoRepositorio _productoRepositorio;
+    private readonly IAuthenticationService _auth;
+    public PresupuestosController(IPresupuestoRepositorio pres, IProductoRepositorio prod, IAuthenticationService auth)
     {
-        _presupuestoRepositorio = new PresupuestoRepositorio();
-        _productoRepositorio = new ProductoRepositorio();
+       // _presupuestoRepositorio = new PresupuestoRepositorio();
+       // _productoRepositorio = new ProductoRepositorio();
+       //porque ya no se usa new presupuesto repo? porque lo hace el builder
+
+       _presupuestoRepositorio = pres;
+       _productoRepositorio = prod;
+       _auth = auth;
     }
 
     //A partir de aqui los get, post, ect.
 
+     private IActionResult CheckAdminPermissions()
+    {
+        // 1. No logueado? -> vuelve al login
+        if (!_auth.IsAuthenticated())
+        {
+            return RedirectToAction("Index", "Login");
+        }
+
+        // 2. No es Administrador? -> Da Error
+        if (!_auth.HasAccessLevel("Administrador"))
+        {
+            // Llamamos a AccesoDenegado (llama a la vista correspondiente de Productos)
+            return RedirectToAction(nameof(AccesoDenegado));
+        }
+        return null; // Permiso concedido
+    }
+
+    public IActionResult AccesoDenegado()
+    {
+        return View();
+    }
+
     [HttpGet]
     public IActionResult Index()
     {
-        List<Presupuestos> presupuestos = _presupuestoRepositorio.obtenerPresupuestos();
-        return View(presupuestos);
+        if (!_auth.IsAuthenticated())
+        {
+            return RedirectToAction("Index", "Login");
+        }
+
+        if (_auth.HasAccessLevel("Administrador") || _auth.HasAccessLevel("Cliente"))
+        {
+            List<Presupuestos> presupuestos = _presupuestoRepositorio.obtenerPresupuestos();
+            return View(presupuestos);
+        }
+        else
+        {
+            return RedirectToAction("Index", "Login");
+        }
     }
 
     [HttpGet]
