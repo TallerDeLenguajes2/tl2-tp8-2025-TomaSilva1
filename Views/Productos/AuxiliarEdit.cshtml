@@ -36,18 +36,22 @@
     </div>
     </nav>
  
-    <form asp-controller="Productos" asp-action="Edit" method="post" class="text-center m-4">
+    <form asp-controller="Productos" asp-action="AuxiliarEdit" method="post" class="text-center m-4">
         <p>Id</p>
         <input type="text" name="id" value="@Model.IdProducto" readonly>
         <p>Descripcion</p>
         <input type="text" name="Descripcion" value="@Model.Descripcion" required>
+        <span asp-validation-for="Descripcion" class="text-danger"></span>
         <p>Precio</p>
         <input type="number" name="Precio" value="@Model.Precio" required>
+        <span asp-validation-for="Precio" class="text-danger"></span>
         <div class="m-3">
             <input type="submit">
             <input type="reset">
         </div>
     </form>
-
+    @section Scripts{
+        <partial name="_ValidationScriptsPartial" />
+    }
 </body>
 </html>

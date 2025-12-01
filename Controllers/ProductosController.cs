@@ -71,7 +71,7 @@ public class ProductosController : Controller
     }
 
     [HttpPost] //Valida el formulario para editar y guarda.
-    public IActionResult Edit(int id, ProductoViewModel PVM)
+    public IActionResult AuxiliarEdit(int id, ProductoViewModel PVM)
     {
         if (!ModelState.IsValid)
         {

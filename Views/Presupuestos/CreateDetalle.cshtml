@@ -1,5 +1,5 @@
 @using Microsoft.VisualBasic
-@model Presupuestos
+@model SistemaVentas.Web.ViewModels.AgregarProductoViewModel
 
 <!DOCTYPE html>
 <html lang="es">
@@ -35,18 +35,22 @@
         </button>
     </div>
     </nav>
-    <form asp-controller="Presupuestos" asp-action="AltaProd" method="post" class="text-center m-4">
+    <form asp-controller="Presupuestos" asp-action="CreateDetalle" method="post" class="text-center m-4">
         <p>Id presupuesto</p>
-        <input type="text" name="idPres" value="@Model.IdPresupuesto" readonly>
+        <input asp-for="IdPresupuesto" value="@Model.IdPresupuesto" readonly>
         <p>id producto</p>
-        <input type="number" name="idProd" required>
+        <select asp-for="IdProducto" asp-items="@Model.ListaProductos" class="form-control"></select>
+        <span asp-validation-for="IdProducto" class="text-danger"></span>
         <p>cantidad</p>
-        <input type="number" name="cant" required>
+        <input asp-for="Cantidad" required>
+        <span asp-validation-for="Cantidad" class="text-danger"></span>
         <div class="m-3">
             <input type="submit">
-            <input type="reset">
         </div>
     </form>
 
+    @section Scripts{
+        <partial name="_ValidationScriptsPartial" />
+    }
 </body>
 </html>
