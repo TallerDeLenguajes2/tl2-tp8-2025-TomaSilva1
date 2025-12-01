@@ -1,5 +1,5 @@
 @using Microsoft.VisualBasic
-@model Productos
+@model SistemaVentas.Web.ViewModels.ProductoViewModel 
 
 <!DOCTYPE html>
 <html lang="es">
@@ -40,9 +40,9 @@
         <p>Id</p>
         <input type="text" name="id" value="@Model.IdProducto" readonly>
         <p>Descripcion</p>
-        <input type="text" name="Desc" value="@Model.Descripcion" required>
+        <input type="text" name="Descripcion" value="@Model.Descripcion" required>
         <p>Precio</p>
-        <input type="number" name="Pre" value="@Model.Precio" required>
+        <input type="number" name="Precio" value="@Model.Precio" required>
         <div class="m-3">
             <input type="submit">
             <input type="reset">

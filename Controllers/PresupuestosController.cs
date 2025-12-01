@@ -1,6 +1,8 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using tl2_tp8_2025_TomaSilva1.Models;
+using SistemaVentas.Web.ViewModels; //Necesario para poder llegar a los ViewModels
+using Microsoft.AspNetCore.Mvc.Rendering; // Necesario para SelectList
 
 namespace tl2_tp8_2025_TomaSilva1.Controllers;
 

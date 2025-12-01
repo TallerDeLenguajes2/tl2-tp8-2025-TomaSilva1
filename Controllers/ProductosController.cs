@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using tl2_tp8_2025_TomaSilva1.Models;
+using SistemaVentas.Web.ViewModels;
 
 namespace tl2_tp8_2025_TomaSilva1.Controllers;
 
@@ -18,24 +19,7 @@ public class ProductosController : Controller
         List<Productos> productos = _productosRepositorio.GetAll();
         return View(productos);
     }
-
-    [HttpGet]
-    public IActionResult Create()
-    {
-        return View();
-    }
-
-    [HttpPost]
-    public IActionResult Alta(string Desc, int Pre)
-    {
-        var p = new Productos()
-        {
-            Descripcion = Desc,
-            Precio = Pre
-        };
-        _productosRepositorio.InsertarProducto(p);
-        return RedirectToAction("Index");
-    }
+    
 
     public IActionResult Details(int id)
     {
@@ -46,23 +30,60 @@ public class ProductosController : Controller
     public IActionResult Delete(int id)
     {
         _productosRepositorio.borrarProducto(id);
-        return RedirectToAction("Index");
+        return RedirectToAction(nameof(Index));
     }
 
+    [HttpGet] //Devuelve la vista del formulario de creacion.
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    [HttpPost] //Recibe los datos del formulario de creacion, los valida y guarda.
+    public IActionResult Alta(ProductoViewModel p)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(p);
+        }
+
+        var nuevoProducto = new Productos
+        {
+            Descripcion = p.Descripcion,
+            Precio = p.Precio
+        };
+        
+        _productosRepositorio.InsertarProducto(nuevoProducto);
+        return RedirectToAction(nameof(Index));
+    }
+
+    [HttpGet] //Devuelve un formulario para editar un producto.
     public IActionResult AuxiliarEdit(int id)
     {
         Productos p = _productosRepositorio.obtenerProductoPorId(id);
-        return View(p);
+        ProductoViewModel prod = new ProductoViewModel
+        {
+            IdProducto = id,
+            Descripcion = p.Descripcion,
+            Precio = p.Precio
+        };
+        return View(prod);
     }
 
-    public IActionResult Edit(int id, string Desc, int Pre)
+    [HttpPost] //Valida el formulario para editar y guarda.
+    public IActionResult Edit(int id, ProductoViewModel PVM)
     {
-        var p = new Productos()
+        if (!ModelState.IsValid)
         {
-            Descripcion = Desc,
-            Precio = Pre
+            return View(PVM); //Si falla, devolvemos el ViewModel con los datos y error de la vista.
+        }
+
+        var nuevoProducto = new Productos()
+        {
+            Descripcion = PVM.Descripcion,
+            Precio = PVM.Precio
         };
-        int real = _productosRepositorio.editarProducto(id, p);
+        int real = _productosRepositorio.editarProducto(id, nuevoProducto);
 
         if(real > 0)
         {
@@ -70,7 +91,7 @@ public class ProductosController : Controller
         }
         else
         {
-            return BadRequest();
+            return BadRequest("NOO");
         }
     }
 }
