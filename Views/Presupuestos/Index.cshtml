@@ -1,4 +1,4 @@
-@model Presupuestos
+@model List<Presupuestos>
 
 @{
     ViewData["Title"] = "Home Page Presupuestos";
@@ -10,9 +10,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index Presupuestos</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <title>Index productos</title>
 </head>
 <body>
-    <h1>Presupuestos</h1>
+    <div class="container text-center">
+        <h1>Presupuestos</h1>
+        <p>Lista de presupuestos cargados</p>
+    </div>
+
+    <div class="collapse" id="navbarToggleExternalContent" data-bs-theme="dark">
+    <div class="bg-dark p-4">
+        <h5 class="text-body-emphasis h4">Opciones</h5>
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between white">
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item">
+                    <a class="nav-link text-white" asp-area="" asp-controller="Presupuestos" asp-action="Details">Buscar por Id</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" asp-area="" asp-controller="Presupuestos" asp-action="Create">Dar de alta</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    </div>
+    <nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    </nav>
+
+    <table class="table table-bordered">
+        <thead>
+            <th scope="col">Id</th>
+            <th scope="col">Destinatario</th>
+            <th scope="col">Fecha de Creación</th>
+            <th scope="col">Acciones</th>
+        </thead>
+        <tbody>
+            @foreach(var pres in Model){
+                <tr scope="row">
+                    <td>@pres.IdPresupuesto</td>
+                    <td>@pres.NombreDestinatario</td>
+                    <td>@pres.FechaCreacion</td>
+                    <td class="text-center">
+                        <a class="btn btn-info" asp-controller="Presupuestos" asp-action="Details" asp-route-id="@pres.IdPresupuesto">Detalles</a>
+                        <button class="btn btn-warning">Editar</button>
+                        <a class="btn btn-danger" asp-controller="Presupuestos" asp-action="Delete" asp-route-id="@pres.IdPresupuesto">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </body>
 </html>

@@ -336,23 +336,23 @@
   },
   "projectFileDependencyGroups": {
     "net9.0": [
-      "Microsoft.Data.SQLite >= 10.0.0"
+      "Microsoft.Data.Sqlite >= 10.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\LENOVO\\.nuget\\packages\\": {}
+    "C:\\Users\\tomas\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\LENOVO\\OneDrive\\Desktop\\tp8 taller\\tl2-tp8-2025-TomaSilva1\\tl2-tp8-2025-TomaSilva1.csproj",
+      "projectUniqueName": "C:\\Users\\tomas\\OneDrive\\Desktop\\tp8-taller\\tl2-tp8-2025-TomaSilva1\\tl2-tp8-2025-TomaSilva1.csproj",
       "projectName": "tl2-tp8-2025-TomaSilva1",
-      "projectPath": "C:\\Users\\LENOVO\\OneDrive\\Desktop\\tp8 taller\\tl2-tp8-2025-TomaSilva1\\tl2-tp8-2025-TomaSilva1.csproj",
-      "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\LENOVO\\OneDrive\\Desktop\\tp8 taller\\tl2-tp8-2025-TomaSilva1\\obj\\",
+      "projectPath": "C:\\Users\\tomas\\OneDrive\\Desktop\\tp8-taller\\tl2-tp8-2025-TomaSilva1\\tl2-tp8-2025-TomaSilva1.csproj",
+      "packagesPath": "C:\\Users\\tomas\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\tomas\\OneDrive\\Desktop\\tp8-taller\\tl2-tp8-2025-TomaSilva1\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\LENOVO\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\tomas\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
@@ -382,7 +382,7 @@
       "net9.0": {
         "targetAlias": "net9.0",
         "dependencies": {
-          "Microsoft.Data.SQLite": {
+          "Microsoft.Data.Sqlite": {
             "target": "Package",
             "version": "[10.0.0, )"
           }
@@ -406,7 +406,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

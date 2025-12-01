@@ -101,7 +101,7 @@ public class PresupuestoRepositorio
             Detalle = new List<PresupuestoDetalle>()
         };
 
-        string sql2 = "SELECT idProducto, descripcion, precio, cantidad FROM presupuestoDetalle INNER JOIN productos p ON p.id_prod = id_prod WHERE idPresupuesto = @id";
+        string sql2 = "SELECT idProducto, descripcion, precio, cantidad FROM presupuestoDetalle pr INNER JOIN productos p ON p.id_prod = pr.idProducto WHERE idPresupuesto = @id";
 
         using var comando2 = new SqliteCommand(sql2, conexion);
         comando2.Parameters.Add(new SqliteParameter("@id", presupuesto.IdPresupuesto));
@@ -188,7 +188,7 @@ public class PresupuestoRepositorio
         comando.Parameters.Add(new SqliteParameter("@1", idPres));
         int first = Convert.ToInt32(comando.ExecuteNonQuery());
 
-        if(first > 0)
+        if(first >= 0)
         {
             using var comando2 = new SqliteCommand(sql2, conexion);
             comando2.Parameters.Add(new SqliteParameter("@1", idPres));
@@ -198,7 +198,7 @@ public class PresupuestoRepositorio
             {
                 using var commit = new SqliteCommand(sql4, conexion);
                 commit.ExecuteNonQuery();
-                return second + first;
+                return second;
             }
             else
             {

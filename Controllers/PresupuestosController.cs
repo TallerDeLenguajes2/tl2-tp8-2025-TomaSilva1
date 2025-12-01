@@ -20,4 +20,58 @@ public class PresupuestosController : Controller
         List<Presupuestos> presupuestos = _presupuestoRepositorio.obtenerPresupuestos();
         return View(presupuestos);
     }
+
+    [HttpGet]
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult Alta(string nombre, string fecha)
+    {
+        Presupuestos pre = new Presupuestos()
+        {
+            NombreDestinatario = nombre,
+            FechaCreacion = fecha
+        };
+        _presupuestoRepositorio.crearPresupuesto(pre);
+        return RedirectToAction("Index");
+    }
+
+    [HttpGet]
+    public IActionResult Details(int id)
+    {
+        var p = _presupuestoRepositorio.obtenerPresupuestoPorId(id);
+        return View(p);
+    }
+
+    [HttpGet]
+    public IActionResult CreateDetalle(int id)
+    {
+        var P = _presupuestoRepositorio.obtenerPresupuestoPorId(id);
+        return View(P);
+    }
+
+    public IActionResult Delete(int id)
+    {
+        int real = _presupuestoRepositorio.eliminarPresupuesto(id);
+
+        if(real == -1)
+        {
+            return BadRequest("First");
+        }else if(real == -2)
+        {
+            return BadRequest("Second");
+        }
+        
+        return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+    public IActionResult AltaProd(int idPres, int idProd, int cant)
+    {
+        _presupuestoRepositorio.agregarProductoAPresupuesto(idProd, idPres, cant);
+        return RedirectToAction("Index");
+    }
 }

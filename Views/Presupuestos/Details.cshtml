@@ -1,0 +1,73 @@
+@model Presupuestos
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <title>Index productos</title>
+</head>
+<body>
+    <div class="container text-center">
+        <h1>Presupuestos</h1>
+        <p>Lista de presupuestos cargados</p>
+    </div>
+
+    <div class="collapse" id="navbarToggleExternalContent" data-bs-theme="dark">
+    <div class="bg-dark p-4">
+        <h5 class="text-body-emphasis h4">Opciones</h5>
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between white">
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item">
+                    <a class="nav-link text-white" asp-area="" asp-controller="Presupuestos" asp-action="Index">Volver</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    </div>
+    <nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    </nav>
+
+    <table class="table table-bordered">
+        <thead>
+            <th scope="col">Id</th>
+            <th scope="col">Destinatario</th>
+            <th scope="col">Fecha de Creación</th>
+        </thead>
+        <tbody>
+            <tr scope="row">
+                <td>@Model.IdPresupuesto</td>
+                <td>@Model.NombreDestinatario</td>
+                <td>@Model.FechaCreacion</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="text-center">
+        <h3>Productos</h3>
+        <a class="btn btn-primary m-4" asp-controller="Presupuestos" asp-action="CreateDetalle" asp-route-id="@Model.IdPresupuesto">+ Agregar</a>
+    </div>
+    <table class="table table-bordered">
+            <thead>
+                <th>Descripcion</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+            </thead>
+        @foreach(var prod in Model.Detalle){
+            <tbody>
+                <tr>
+                    <td>@prod.Producto.Descripcion</td>
+                    <td>@prod.Producto.Precio</td>
+                    <td>@prod.Cantidad</td>
+                </tr>
+            </tbody>
+        }
+    </table>
+</body>
+</html>
